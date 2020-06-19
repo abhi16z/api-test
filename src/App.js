@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import JSONPretty from "react-json-pretty";
-import "react-json-pretty/themes/monikai.css";
+import "react-json-pretty/themes/adventure_time.css";
 
 import "./styles.css";
 
@@ -8,7 +8,7 @@ export default function App() {
   const [isFetching, toggleFetching] = useState(false);
   const [error, setError] = useState(false);
   const [response, setResponse] = useState({});
-  const [url, setUrl] = useState("https://til.unajs.org/api/posts/read.php");
+  const [url, setUrl] = useState("https://test.unajs.org/api.php");
 
   const makeApiCall = async () => {
     try {
