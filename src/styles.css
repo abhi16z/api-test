@@ -1,0 +1,24 @@
+.App {
+  font-family: sans-serif;
+  padding: 0 50px;
+}
+
+.__json-pretty__ {
+  padding: 20px !important;
+}
+
+button {
+  width: 100px;
+  height: 45px;
+  background-color: white;
+  border: 1px solid green;
+  color: green;
+  font-size: 18px;
+}
+
+input {
+  flex: 1;
+  height: 40px;
+  font-size: 18px;
+  padding-left: 10px;
+}

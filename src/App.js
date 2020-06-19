@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/monikai.css";
 
-function App() {
+import "./styles.css";
+
+export default function App() {
+  const [isFetching, toggleFetching] = useState(false);
+  const [error, setError] = useState(false);
+  const [response, setResponse] = useState({});
+  const [url, setUrl] = useState("https://til.unajs.org/api/posts/read.php");
+
+  const makeApiCall = async () => {
+    try {
+      setError(false);
+      toggleFetching(true);
+      const respons = await fetch(url, {
+        method: "GET"
+      });
+      const responseJson = await respons.json();
+      setResponse(responseJson);
+      console.log(responseJson);
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    } finally {
+      toggleFetching(false);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+      <h1>Test Api</h1>
+      <div style={{ display: 'flex' }}>
+        <input
+          type="url"
+          id="url"
+          placeholder="Enter Url to make get call"
+          autoComplete={false}
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+        />
+        <button onClick={() => makeApiCall()}>
+          {isFetching ? "Calling..." : "Call"}
+        </button>
+      </div>
+      {!error && (
+        <JSONPretty id="json-pretty" data={response} />
+      )}
+      {error && (
+        <p style={{ color: "red", backgroundColor: "pink", padding: 20 }}>
+          Something went wrong
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      )}
     </div>
   );
 }
-
-export default App;
